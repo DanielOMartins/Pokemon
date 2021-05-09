@@ -1,18 +1,25 @@
 public class Pokemon {
     private String nome, tipo;
-    private int ata, def, agil, hp;
+    private int ata, def, agil, hp, atributo;
 
     public Pokemon(){
     }
-
+    
+    public int selecionarPoke(String nome, int op){
+        if(nome == "charizard"){
+            return atributo = charizard(op);
+        }
+        return 0;
+    }
     //Fogo
-    public void charizard(){
+    public int charizard(int op){
         nome = "Charizard";
         tipo = "fogo";
-        ata = 4000;
-        def = 7000;
-        agil = 35;
-        hp = 25000;
+        if(op == 1){return ata = 4000;}
+        if(op == 2){return def = 7000;}
+        if(op == 3){return agil = 35;}
+        if(op == 4){hp = 25000;}
+        return 0;
     }
     public void hoho(){
         nome = "Ho-Ho";
