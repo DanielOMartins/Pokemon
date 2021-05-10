@@ -1,29 +1,25 @@
 import java.util.Scanner;
-import java.util.Random;
 
 public class Batalha {
     private Pokemon pokemon;
-    private Random rand;
-    private int aux;
-    private String nomes[], pokesBot[];
-    private String nomesBot[] = {"charizard", "Ho-Ho", "vulpix", "magmar", "pikachu", "ampharos", "dedenne", "jolteon", "bayleef", "treecko", "shaymin", "bulbasaur", "totodile", "squirtle", "lapras", "maril"};
+    private String nomes[];
     private Scanner ler;
 
     public Batalha(){
         pokemon = new Pokemon();
         nomes = new String[3];
-        pokesBot = new String[3];
-        rand = new Random();
         ler = new Scanner(System.in);
         
     }
 
-    public void iniciarBatalha(){
-
+    public void iniciarJogo(){
+        System.out.println("****************Bem vindo ao Pokemon!!****************");
+        System.out.println("Aqui você e seu amigo vão batalhar duelos para descobrir quem é o melhor treinador.\n");
+        //Adicionar todas as 16 opções de pokemons
     }
 
-    public String[] selecionarPoke(){
-        System.out.println("Selecione 3 pokemons: ");
+    public String[] escolherPokes(int num){
+        System.out.printf("Jogador %d selecione 3 pokemons:\n", num);
         for (int i = 0; i < 3; i++) {
             nomes[i] = ler.nextLine();
         }
@@ -33,8 +29,12 @@ public class Batalha {
 
     public void mostrarPoke(String[] jog){
         for (int i = 0; i < 2; i++) {
-            System.out.printf("%s, ", jog[i]);
+            System.out.printf("%d - %s\n",(i + 1), jog[i]);
         }
-        System.out.printf("%s.", jog[2]);
+        System.out.printf("%d - %s\n", 3,  jog[2]);
+    }
+
+    public void iniciarBatalha(){
+        
     }
 }
