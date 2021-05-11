@@ -14,7 +14,5 @@ public class PokemonGame {
              batalha.iniciarBatalha(jogador1, jogador2);
              resp = batalha.jogarDnv();
         }while(resp == 's');
-       
-        
     }
 }
