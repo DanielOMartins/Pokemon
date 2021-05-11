@@ -12,6 +12,7 @@ public class Batalha {
         resp = new Scanner(System.in);
     }
 
+    //Inicia o jogo mostrando algumas regras
     public void iniciarJogo(){
         System.out.println("\n**************** Bem vindo ao Pokemon!! ****************");
         System.out.println("Aqui você e seu amigo vão batalhar duelos para descobrir quem é o melhor treinador.\n");
@@ -29,10 +30,11 @@ public class Batalha {
         System.out.println("Água:\nTotodile - Squirtle - Lapras - Maril\n");
     }
 
+    //É onde o jogar faz a escolha de seus Pokemons
     public String[] escolherPokes(int num){
-        String nomes[] = {"", "", ""};
-        System.out.printf("\nJogador %d selecione 3 pokemons:\n", num);
-        for (int i = 0; i < 3; i++) {
+        String nomes[] = {"", "", "", "", "", ""};
+        System.out.printf("\nJogador %d selecione 6 pokemons:\n", num);
+        for (int i = 0; i < 6; i++) {
             nomes[i] = ler.nextLine();
             nomes[i] = nomes[i].toLowerCase();
         }
@@ -40,13 +42,15 @@ public class Batalha {
         return nomes;
     }
 
+    //É onde mostra para o jogador os Pokemons escolhidos
     public void mostrarPoke(String[] jog){
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             System.out.printf("%d - %s\n",(i + 1), jog[i]);
         }
-        System.out.printf("%d - %s\n", 3,  jog[2]);
+        System.out.printf("%d - %s\n", 6,  jog[5]);
     }
 
+    //O jogador seleciona com qual pokemon vai batalhar
     public int pokeBatalha(String[] poke, int num){
         System.out.printf("jogador %d: \n", num);
         mostrarPoke(poke);
@@ -57,41 +61,46 @@ public class Batalha {
 
     }
 
+    //Inicia e desenvolve toda a batalha entre os jogadores
     public void iniciarBatalha(String[] jog1, String[] jog2){
         System.out.println("\n****************A batalha vai começar!!****************");
         int num;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 12; i++) { //Esse for representa a quantidade total possível de batalhas
             op1 = pokeBatalha(jog1, 1);
             op2 = pokeBatalha(jog2, 2);
 
             count1 = 0;
             count2 = 0;
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < 4; j++) { //Esse for representa a rodada de batalhas entre dois pokemons
                 if(vencedor == 0){
                     num = 1;
                 }else{
                     num = 2;
                 }
-                    System.out.printf("jogador %d escolha um atributo para batalhar:\n", num);
-                    System.out.println("1 - Ataque");
-                    System.out.println("2 - Defesa");
-                    System.out.println("3 - Agilidade");
-                    System.out.println("4 - HP");
-                    System.out.printf("Escolha: ");
-                    escolher = ler1.nextInt();
-                    
-                    atributo1 = pokemon.selecionarPoke(jog1[op1 - 1], escolher);
-                    tipo1 = verificarTipo(jog1[op1 - 1]);
+                //Aqui o vencedor da rodada anterior seleciona o atributo a ser disputado
+                System.out.printf("jogador %d escolha um atributo para batalhar:\n", num);
+                System.out.println("1 - Ataque");
+                System.out.println("2 - Defesa");
+                System.out.println("3 - Agilidade");
+                System.out.println("4 - HP");
+                System.out.printf("Escolha: ");
+                escolher = ler1.nextInt();
+                  
+                //Aqui retornamos o tipo e o qual o valor do atributo escolhido do pokemon
+                atributo1 = pokemon.selecionarPoke(jog1[op1 - 1], escolher);
+                tipo1 = verificarTipo(jog1[op1 - 1]);
                                     
-                    atributo2 = pokemon.selecionarPoke(jog2[op2 - 1], escolher);
-                    tipo2 = verificarTipo(jog2[op2 - 1]);
+                atributo2 = pokemon.selecionarPoke(jog2[op2 - 1], escolher);
+                tipo2 = verificarTipo(jog2[op2 - 1]);
 
-                    atributo1 = efetividade(atributo1, tipo1, tipo2);
-                    atributo2 = efetividade(atributo2, tipo2, tipo1);
+                //Verifica se os atributos vão ser super efetivos ou não
+                atributo1 = efetividade(atributo1, tipo1, tipo2);
+                atributo2 = efetividade(atributo2, tipo2, tipo1);
 
-                    System.out.printf("\nAtributo %s: %.0f\n", jog1[op1 - 1],  atributo1);
-                    System.out.printf("Atributo %s: %.0f\n\n", jog2[op2 - 1], atributo2);
+                System.out.printf("\nAtributo %s: %.0f\n", jog1[op1 - 1],  atributo1);
+                System.out.printf("Atributo %s: %.0f\n\n", jog2[op2 - 1], atributo2);
             
+                //retorna o vencedor da batalha onde 0 é o jogador 1 e 1 é o jogador 2
                 vencedor = batalha(atributo1, atributo2, jog1[op1 - 1], jog2[op2 - 1]);
 
                 if(vencedor == 0){
@@ -100,6 +109,7 @@ public class Batalha {
                     count2++;
                 }
 
+                //É onde se verifica quem foi o vencedor da rodada
                 if(count1 == 3){
                     jog2[op2 - 1] = "Desmaiado";
                     System.out.println("\nJogador 1 foi o vencedor da rodada!!");
@@ -116,9 +126,11 @@ public class Batalha {
                     System.out.println("Houve um empate!!");
                 }
             }
+            System.out.println("*********************************\n");
+            //Ao final de cada rodada verifica se algum jogador perdeu todos os pokemos e declara o vencedor
             fim = verficarGanhador(jog1, jog2);
             if(fim == 1){
-                i = 5;
+                i = 11;
             }
         }
         System.out.println("\nPokemons jogador 1:");
@@ -127,6 +139,7 @@ public class Batalha {
         mostrarPoke(jog2);
     }
 
+    //É onde ocorre toda a batalha dos atributos escolhidos
     public int batalha(double atributo1, double atributo2, String poke1, String poke2){
         int vencedor;
         if(atributo1 > atributo2){
@@ -138,6 +151,7 @@ public class Batalha {
         }
     }
 
+    //Verifica o tipo do pokemon
     public int verificarTipo(String poke){
         // 1 - fogo, 2 - eletrico, 3 - planta, 4 - água
         int tipo;
@@ -156,26 +170,28 @@ public class Batalha {
         return 0;
     }
 
+    //Verifica se o atributo recebe efetividade devido aos tipos dos pokemons
     public double efetividade(Double atributo, int tipo1, int tipo2){
         if(tipo1 == 1 && tipo2 == 3){
-            System.out.println("\nAtaque efetivo!!");
+            System.out.println("\nAtaque super efetivo!!");
             return atributo * 1.5;
         }
         if(tipo1 == 2 && tipo2 == 4){
-            System.out.println("\nAtaque efetivo!!");
+            System.out.println("\nAtaque super efetivo!!");
             return atributo * 1.5;
         }
         if(tipo1 == 3 && tipo2 == 2){
-            System.out.println("\nAtaque efetivo!!");
+            System.out.println("\nAtaque super efetivo!!");
             return atributo * 1.5;
         }
         if(tipo1 == 4 && tipo2 == 1){
-            System.out.println("\nAtaque efetivo!!");
+            System.out.println("\nAtaque super efetivo!!");
             return atributo * 1.5;
         }
         return atributo;
     }
 
+    //Verifica quem foi o ganhador da rodada
     public int verficarGanhador(String[] jog1, String[] jog2){
         int count1 = 0;
         int count2 = 0;
@@ -189,17 +205,18 @@ public class Batalha {
                 count2++;
             }
         }
-        if(count1 == 3){
+        if(count1 == 6){
             System.out.println("O jogador 2 venceu!!");
             return 1;
         }
-        if(count2 == 3){
+        if(count2 == 6){
             System.out.println("O jogador 1 venceu!!");
             return 1;
         }
         return 0;
     }
 
+    //Verifica se os jogadores desejam jogar novamente
     public char jogarDnv(){
         System.out.println("Deseja continuar jogando? (s/n)");
         return resp.next().charAt(0);
