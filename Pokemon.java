@@ -1,9 +1,11 @@
 public class Pokemon {
-    private static Double ata, def, agil, hp;
+    //Essa classe funciona basicamente como um banco de dados
+    //Ela guarda o valor dos atributos de cada pokemon
+    //E retorna eles quando é pedido
 
-    public Pokemon(){
-    }
+    private static Double ata, def, agil, hp;
     
+    //Recebe o nome do pokemon em batalha e o atributo escolhido, e retorna o valor de atributo no metodo conrrespondente
     public double selecionarPoke(String nome, int op){
         if(nome.equals("charmander")){
             return charmander(op);
@@ -55,6 +57,7 @@ public class Pokemon {
         }
         return 0;
     }
+    //Cada método representa um pokemon e guarda os atributos
     //Fogo
     public double charmander(int op){
         if(op == 1){return 4000.0;}
